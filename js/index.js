@@ -45,6 +45,11 @@ else if (cuotas === 3 || cuotas === 6) {
 else if (cuotas === 12) {
     alert("El monto a pagar es de : $" + (deudaAuto + cuota12));
     }
+else {
+    while (cuotas !== "1" && cuotas !== "3" && cuotas !== "6" && cuotas !== "12") {
+        alert("Numero de cuotas invalidas");
+        cuotas= parseInt(prompt("¿En cuantas cuotas desea abonar?"));}
+}
 }
 
 

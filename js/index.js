@@ -61,6 +61,7 @@ console.log("La deuda total es : $" + deudaMoto);
 
 
 
+
 // si qiere pagar en 1 50% desc
 // si qiere pagar en 3 o 6 total
 // si qiere pagar en 12 50% Interes

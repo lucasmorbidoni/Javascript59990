@@ -12,7 +12,7 @@ alert("Bienvenido!");
 const nombre= prompt("Ingrese su nombre:")               //nombre
 const apellido= prompt( "Ingrese su apellido")            //apellido
 console.log (nombre + " " + apellido);
-alert("Hola" + nombre + " " + apellido + ".");
+alert("Hola" + " " + nombre + " " + apellido + ".");
 
 
 const vehiculo= prompt ( "Indique si su vehículo es auto o moto")
@@ -29,6 +29,16 @@ for (let i = 0; i < mesesAuto; i++) {
 }
 alert("La deuda total es:" + deudaAuto);
 console.log("La deuda total es: $" + deudaAuto);
+alert("En 1 pago 10% descuento / 3 o 6 cuotas sin interes / 12 cuotas 50% de interes");
+const cuotas= parseInt(prompt("¿En cuantas cuotas desea abonar?"))
+const cuota1= deudaAuto * 10/100;
+const cuota3= deudaAuto;
+const cuota6 = deudaAuto;
+const cuota12= deudaAuto / 2;
+
+if (cuotas === 1) {
+    alert("El monto a pagar es de : $" + (deudaAuto - cuota1));
+    }
 }
 
 
@@ -43,6 +53,8 @@ for( let i=0 ; i < mesesMoto; i++) {
 alert("La deuda total es:" + deudaMoto);
 console.log("La deuda total es : $" + deudaMoto);
 }
+
+
 
 
 

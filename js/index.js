@@ -1,21 +1,21 @@
-// usuario= Admin
-// contraseña= 1234
+usuario= Admin
+contraseña= 1234
 
-// let usuario = prompt("Ingrese su usuario:");
-// while (usuario !== "Admin") {                        //Si el usuario esta mal
-//     alert("Usuario inválido");
-//     usuario = prompt("Ingrese su usuario:");}
-// let contraseña = prompt("Ingrese su contraseña:");
-// while (contraseña !== "1234") {                      // SI la contraseña esta mal
-//     alert("Contraseña incorrecta");
-//     contraseña = prompt("Ingrese su contraseña:");
-// }
-// alert("Bienvenido!");
+let usuario = prompt("Ingrese su usuario:");
+while (usuario !== "Admin") {                        //Si el usuario esta mal
+alert("Usuario inválido");
+usuario = prompt("Ingrese su usuario:");}
+let contraseña = prompt("Ingrese su contraseña:");
+while (contraseña !== "1234") {                      // SI la contraseña esta mal
+alert("Contraseña incorrecta");
+contraseña = prompt("Ingrese su contraseña:");
+}
+alert("Bienvenido!");
     
-// const nombre= prompt("Ingrese su nombre:")
-// const apellido= prompt( "Ingrese su apellido")
-// console.log (nombre + " " + apellido);
-//alert("Hola" + nombre + " " + apellido + ".");
+const nombre= prompt("Ingrese su nombre:")               //nombre
+const apellido= prompt( "Ingrese su apellido")            //apellido
+console.log (nombre + " " + apellido);
+alert("Hola" + nombre + " " + apellido + ".");
 
 
 const vehiculo= prompt ( "Indique si su vehículo es auto o moto")

@@ -1,5 +1,5 @@
-usuario= Admin
-contraseña= 1234
+// usuario= Admin
+// contraseña= 1234
 
 let usuario = prompt("Ingrese su usuario:");
 while (usuario !== "Admin") {                        //Si el usuario esta mal

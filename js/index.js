@@ -39,6 +39,12 @@ const cuota12= deudaAuto / 2;
 if (cuotas === 1) {
     alert("El monto a pagar es de : $" + (deudaAuto - cuota1));
     }
+else if (cuotas === 3 || cuotas === 6) {
+    alert("El monto a pagar es de : $" + deudaAuto);
+    }
+else if (cuotas === 12) {
+    alert("El monto a pagar es de : $" + (deudaAuto + cuota12));
+    }
 }
 
 

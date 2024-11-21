@@ -88,6 +88,31 @@ class Modelo {
 
 
 //FUNCIONES
+function modificarModelo(){
+    const modificarAuto = prompt ( " Ingrese el modelo que quiere modificar") ;
+    const autoModificado = modelos.find ( ( el) =>{
+        return el.nombre.toLowerCase() === modificarAuto.toLowerCase;
+    })
+};
+
+function mostrarTotal(){
+    const total = modelos.reduce((acc, el) => {
+        return acc + el.precio;
+    }, 0);
+   // alert("El total es $" + " " + mostrarTotal)
+    alert("El total es $" + " " + total);
+    console.log ( mostrarTotal);
+}
+
+
+//añadir formas de pago
+
+/*function aplicarDescuento(porcentaje){
+    return (total) => total * porcentaje;
+    const descuentoDel10= aplicarDescuento(0.10);
+    const descuentoDel20= aplicarDescuento(0.20);
+}*/
+
 function opcioValida ( opcionIngresada ) {
     while ( opcionIngresada <1 || opcionIngresada > 4) {  // si ingresa un numero erroneo
         alert (" Opcion invalida ");
@@ -147,14 +172,20 @@ const modelos = [
 ];
 
 
-const seleccionarModelo = (" 1- Agregar modelo. 2- Modificar Modelo. 3- Mostrar total. 4- Salir.");
+const seleccionarModelo = (" 1- Agregar modelo. 2- Modificar Modelo. 3- Mostrar total y formas de pago. 4- Salir.");
 let opcion= parseInt ( prompt ( seleccionarModelo));
 
 while ( opcioValida (opcion)){
     switch(opcion){
         case 1:
-        crearModelo();
-        break;
+            crearModelo();
+            break;
+        case 2:
+            modificarModelo();
+            break;
+        case 3:
+            mostrarTotal();
+            break;
     }
 
 //                           volver a pedir la opcion para no quedarse en un bucle infinito

@@ -113,7 +113,7 @@ function mostrarTotal(){
     const descuentoDel20= aplicarDescuento(0.20);
 }*/
 
-function opcioValida ( opcionIngresada ) {
+function opcionValida ( opcionIngresada ) {
     while ( opcionIngresada <1 || opcionIngresada > 4) {  // si ingresa un numero erroneo
         alert (" Opcion invalida ");
         opcionIngresada = parseInt ( prompt (seleccionarModelo));
@@ -175,7 +175,7 @@ const modelos = [
 const seleccionarModelo = (" 1- Agregar modelo. 2- Modificar Modelo. 3- Mostrar total y formas de pago. 4- Salir.");
 let opcion= parseInt ( prompt ( seleccionarModelo));
 
-while ( opcioValida (opcion)){
+while ( opcionValida (opcion)){
     switch(opcion){
         case 1:
             crearModelo();

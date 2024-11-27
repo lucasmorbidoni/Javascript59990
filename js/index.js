@@ -18,8 +18,6 @@ console.log (nombre + " " + apellido);
 alert("Hola" + " " + nombre + " " + apellido );
 
 
-
-
 const vehiculo= prompt ( "Indique si su vehículo es auto o moto")
 console.log(vehiculo);
 const patente = prompt("Ingrese su dominio:");
@@ -55,7 +53,6 @@ else {
         alert("Numero de cuotas invalidas");
         cuotas= parseInt(prompt("¿En cuantas cuotas desea abonar?"));}
 }
-}
 
 else {(vehiculo === "moto")
 alert("EL MONTO ANUAL DE PATENTE ES EQUIVALENTE A $6000 = $500 mensual");              //precio moto
@@ -88,12 +85,32 @@ class Modelo {
 
 
 //FUNCIONES
+
+function obtenerModeloPorNombre() {          // modificar modelo sino queda en un loop 
+    let modificarAuto = prompt ( " Ingrese el modelo que quiere modificar") ;
+    let autoModificado = modelos.find ( ( el) =>{
+        return el.nombre.toLowerCase() === modificarAuto.toLowerCase();
+    });
+
+    while (autoModificado === undefined) {
+        alert ( "Modelo inexistente");
+        modificarAuto = prompt ( " Ingrese el modelo que quiere modificar") ;
+        autoModificado = modelos.find ( ( el) =>{
+            return el.nombre.toLowerCase() === modificarAuto.toLowerCase();
+        });
+    }
+    return autoModificado;
+}
+
+
 function modificarModelo(){
-    const modificarAuto = prompt ( " Ingrese el modelo que quiere modificar") ;
-    const autoModificado = modelos.find ( ( el) =>{
-        return el.nombre.toLowerCase() === modificarAuto.toLowerCase;
-    })
-};
+    let autoModificado = obtenerModeloPorNombre();
+    const nuevoPrecio = parseInt ( prompt( "Ingrese nuevo precio"));
+
+    autoModificado.precio= nuevoPrecio;
+    alert ( "Producto modificado");
+    console.log (modelos)
+}
 
 function mostrarTotal(){
     const total = modelos.reduce((acc, el) => {
@@ -168,9 +185,11 @@ alert("Hola" + " " + nombre + " " + apellido );        */
 //
 
 const modelos = [
-
+    new Modelo ("polo", 2020, 20000, 20000000),
+    new Modelo ("nivus", 2020, 20000, 25000000),
+    new Modelo ("vento", 2020, 20000, 30000000),
+    new Modelo ("amarok", 2020, 20000, 35000000),
 ];
-
 
 const seleccionarModelo = (" 1- Agregar modelo. 2- Modificar Modelo. 3- Mostrar total y formas de pago. 4- Salir.");
 let opcion= parseInt ( prompt ( seleccionarModelo));
@@ -196,4 +215,4 @@ opcion= parseInt ( prompt ( seleccionarModelo));
 //const deshacer = prompt ( " Para continuar con el medio de pago indique 1, si desea cancelar el producto indique 2");
 //if ( deshacer === 2 ) {
 //    carrito.pop();
-//}*/
+//}*/ 

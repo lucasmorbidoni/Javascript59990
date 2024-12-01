@@ -5,11 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="./css/style.css">
+    <style>table, th, td {
+        border: 1px solid black;
+        padding: 0.5rem;
+    }
+    </style>
 </head>
 <body>
 <!-- usuario= Admin
     contraseña= 1234 -->
+    <table>
+        <thead> 
+            <tr>    
+                <th>nombre</th>
+                <th>año</th>
+                <th>km</th>
+                <th>precio</th>
+            </tr>
+        </thead>
+
+        <tbody id="tbodyModelos"></tbody>
+    </table>
+
+    <form id=" formAgregarModelo" style="margin-top: 2 rem;">
+        <input type="text" id="nombreModelo" placeholder="Nombre" style="border-color: rgb(99, 104, 209);">
+        <input type="number" id="nombreModelo" placeholder="Año" style="border-color: rgb(99, 104, 209);">
+        <input type="number" id="nombreModelo" placeholder="Km" style="border-color: rgb(99, 104, 209);">
+        <input type="number" id="nombreModelo" placeholder="Precio" style="border-color: rgb(99, 104, 209);">
+
+        <button type= "submit" >Agregar modelo</button>
+    </form>
 
     <script src="./js/index.js"></script>
+
 </body>
 </html>

@@ -10,7 +10,7 @@ class Modelo {
 
 //FUNCIONES
 
-function obtenerModeloPorNombre() {          // modificar modelo sino queda en un loop 
+/*function obtenerModeloPorNombre() {          // modificar modelo sino queda en un loop 
     let modificarAuto = prompt ( " Ingrese el modelo que quiere modificar") ;
     let autoModificado = modelos.find ( ( el) =>{
         return el.nombre.toLowerCase() === modificarAuto.toLowerCase();
@@ -24,7 +24,7 @@ function obtenerModeloPorNombre() {          // modificar modelo sino queda en u
         });
     }
     return autoModificado;
-}
+} */
 
 function modificarModelo(){                           // modificar modelo
     let autoModificado = obtenerModeloPorNombre();
@@ -41,7 +41,7 @@ function modificarModelo(){                           // modificar modelo
 function agregarTabla (){
     tbodyModelos.innerHTML= "";
 
-    for( modelo of modelos) {
+    for(let modelo of modelos) {
 
         const tr = document.createElement("tr");
         tr.innerHTML = `
@@ -71,7 +71,7 @@ function mostrarTotal(){                             //funcion sumatoria total
     const descuentoDel20= aplicarDescuento(0.20);
 }*/
 
-function opcionValida ( opcionIngresada ) {
+/*function opcionValida ( opcionIngresada ) {
     while ( opcionIngresada <1 || opcionIngresada > 4) {  // si ingresa un numero erroneo
         alert (" Opcion invalida ");
         opcionIngresada = parseInt ( prompt (seleccionarModelo));
@@ -81,16 +81,17 @@ function opcionValida ( opcionIngresada ) {
         return false;
         }
     return true;
-}
+}*/
 
-function crearModelo(e) {                    //pedimos los datos del auto
-    console.log (e);
-    e.preventDefault(); //  Va agregando modelo a la lista
+
+    function crearModelo(e) { //pedimos los datos del auto
+        e.preventDefault();
+     //  Va agregando modelo a la lista
     //obterner los inputs
-    const inputNombreModelo= document.getElementById ("nombreProducto");
-    const inputAñoModelo= document.getElementById ("añoProducto");
-    const inputKmModelo= document.getElementById ("kmProducto");
-    const inputPrecioModelo= document.getElementById ("precioProducto");
+    const inputNombreModelo= document.getElementById ("nombreModelo");
+    const inputAñoModelo= document.getElementById ("añoModelo");
+    const inputKmModelo= document.getElementById ("kmModelo");
+    const inputPrecioModelo= document.getElementById ("precioModelo");
     
     //pedimos los datos del modelo
     const nombreModelo = inputNombreModelo.value;
@@ -98,17 +99,19 @@ function crearModelo(e) {                    //pedimos los datos del auto
     const kmModelo= parseFloat(inputKmModelo.value);
     const precio= parseFloat(inputPrecioModelo.value);
 
+    // Limpiamos inputs
+    inputNombreModelo.value = "";
+    inputAñoModelo.value = "";
+    inputKmModelo.value = "";
+    inputPrecioModelo.value = "";
+
     //creamos el modelo
-    const modelo = new Modelo (                //creamos el auto
-        nombreModelo,
-        añoModelo,
-        kmModelo,
-        precio,
-    );
+    const modelo = new Modelo (nombreModelo, añoModelo, kmModelo, precio,);
 
 
     modelos.push(modelo);                        //agregar auto al array
     alert ("MODELO AGREGADO")
+    agregarTabla();
     console.log( modelos);
 }
 

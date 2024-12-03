@@ -26,7 +26,7 @@ class Modelo {
     return autoModificado;
 } */
 
-function modificarModelo(){                           // modificar modelo
+/*function modificarModelo(){                           // modificar modelo
     let autoModificado = obtenerModeloPorNombre();
     const nuevoAño = parseInt ( prompt( "Ingrese nuevo año"));
     const nuevoKm = parseInt ( prompt( "Ingrese nuevo km"));
@@ -36,12 +36,10 @@ function modificarModelo(){                           // modificar modelo
     autoModificado.precio= nuevoPrecio;
     alert ( "Producto modificado");
     console.log (modelos)
-}
+}*/
 
-function agregarTabla (){
-    tbodyModelos.innerHTML= "";
 
-    for(let modelo of modelos) {
+    /*for(let modelo of modelos) {
 
         const tr = document.createElement("tr");
         tr.innerHTML = `
@@ -52,7 +50,7 @@ function agregarTabla (){
         `;
         tbodyModelos.append(tr);
     }
-}
+}*/
 
 function mostrarTotal(){                             //funcion sumatoria total
     const total = modelos.reduce((acc, el) => {
@@ -85,8 +83,8 @@ function mostrarTotal(){                             //funcion sumatoria total
 
 
     function crearModelo(e) { //pedimos los datos del auto
-        e.preventDefault();
-     //  Va agregando modelo a la lista
+        e.preventDefault();  //  Va agregando modelo a la lista
+    
     //obterner los inputs
     const inputNombreModelo= document.getElementById ("nombreModelo");
     const inputAñoModelo= document.getElementById ("añoModelo");
@@ -115,6 +113,128 @@ function mostrarTotal(){                             //funcion sumatoria total
     console.log( modelos);
 }
 
+function clickSpanAñoModelo(tdAño, spanAño, modelo) {
+    // Crear input
+    const inputAño = document.createElement("input");
+    inputAño.type = "number";
+    inputAño.value = modelo.año;
+
+    inputAño.addEventListener("change", () => {
+        // Cambiamos precio de producto
+        modelo.año = inputAño.value;
+
+        // Volver a renderizar la tabla de productos
+        agregarTabla();
+    });
+
+    // Agregar input al td
+    tdAño.append(inputAño);
+
+    // Ocultar span
+    spanAño.className = "ocultar-elemento";
+}
+
+function clickSpanKmModelo(tdKm, spanKm, modelo) {
+    // Crear input
+    const inputKm = document.createElement("input");
+    inputKm.type = "number";
+    inputKm.value = modelo.km;
+
+    inputKm.addEventListener("change", () => {
+        // Cambiamos cantidad de producto
+        modelo.km = inputKm.value;
+
+        // Volver a renderizar la tabla de productos
+        agregarTabla();
+    });
+
+    // Agregar input al td
+    tdKm.append(inputKm);
+
+    // Ocultar span
+    spanKm.className = "ocultar-elemento";
+}
+
+function clickSpanPrecioModelo(tdPrecio, spanPrecio, modelo) {
+    // Crear input
+    const inputPrecio = document.createElement("input");
+    inputPrecio.type = "number";
+    inputPrecio.value = modelo.precio;
+
+    inputPrecio.addEventListener("change", () => {
+        // Cambiamos precio de producto
+        modelo.precio = inputPrecio.value;
+
+        // Volver a renderizar la tabla de productos
+        agregarTabla();
+    });
+
+    // Agregar input al td
+    tdPrecio.append(inputPrecio);
+
+    // Ocultar span
+    spanPrecio.className = "ocultar-elemento";
+}
+
+
+function agregarTabla (){
+    tbodyModelos.innerHTML= "";
+
+    for(const modelo of modelos) {
+        // Creamos tr
+        const tr = document.createElement("tr");
+
+        // Creamos tds
+        const tdNombre = document.createElement("td");
+        const tdAño = document.createElement("td");
+        const tdKm = document.createElement("td");
+        const tdPrecio = document.createElement("td");
+        const tdEstado = document.createElement("td");
+
+        tdNombre.innerText = `${modelo.nombre}`;
+
+        const spanAño = document.createElement("span");
+        spanAño.innerText = `${modelo.año}`;
+        spanAño.addEventListener("click", () => {
+            clickSpanAñoModelo(tdAño, spanAño, modelo);
+        });
+
+        const spanKm = document.createElement("span");
+        spanKm.innerText = `${modelo.km}`;
+        spanKm.addEventListener("click", () => {
+            clickSpanKmModelo(tdKm, spanKm, modelo);
+        });
+
+        
+        const spanPrecio = document.createElement("span");
+        spanPrecio.innerText = `$${modelo.precio}`;
+        spanPrecio.addEventListener("click", () => {
+            clickSpanPrecioModelo(tdPrecio, spanPrecio, modelo);
+        });
+
+    
+        tdAño.append(spanAño);
+        tdKm.append(spanKm);
+        tdPrecio.append(spanPrecio);
+
+        // TD estado
+        const botonDisponible = document.createElement("button");
+        botonDisponible.innerText= "Disponible";
+        botonDisponible.style.backgroundColor= "rgba(15, 235, 11, 0.801)";
+        botonDisponible.style.borderRadius = "5px";
+        botonDisponible.style.padding = "2px 5px";
+        // TODO: Disponible 
+
+        tdEstado.append(botonDisponible) ;
+
+        // Agregar tds al tr
+        tr.append(tdNombre, tdAño, tdKm, tdPrecio, tdEstado);
+
+        tbodyModelos.append(tr);
+    }
+}
+
+
 //INICIO DEL PROGRAMA
 
 /*let usuario = prompt("Ingrese su usuario:");         //Admin
@@ -136,6 +256,7 @@ alert("Hola" + " " + nombre + " " + apellido );        */
 
 const formAgregarModelo = document.getElementById("formAgregarModelo");
 const tbodyModelos= document.getElementById("tbodyModelos");
+//const spanTotal = document.getElementById("total");
 
 const modelos = [               //array modelos
     new Modelo ("polo", 2020, 20000, 20000000),

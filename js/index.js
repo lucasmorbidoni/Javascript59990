@@ -10,48 +10,40 @@ class Modelo {
 
 //FUNCIONES
 
-/*function obtenerModeloPorNombre() {          // modificar modelo sino queda en un loop 
-    let modificarAuto = prompt ( " Ingrese el modelo que quiere modificar") ;
-    let autoModificado = modelos.find ( ( el) =>{
-        return el.nombre.toLowerCase() === modificarAuto.toLowerCase();
-    });
+function guardarEnLS() {
+    const modelosJSON = JSON.stringify(modelos);
 
-    while (autoModificado === undefined) {
-        alert ( "Modelo inexistente");
-        modificarAuto = prompt ( " Ingrese el modelo que quiere modificar") ;
-        autoModificado = modelos.find ( ( el) =>{
-            return el.nombre.toLowerCase() === modificarAuto.toLowerCase();
-        });
+    localStorage.setItem("modelos", modelosJSON);
+}
+
+function obtenerDeLS () {
+    const modelosJSON = localStorage.getItem("modelos");
+
+    if(modelosJSON === null) {
+        return [
+            new Modelo("polo", 2020, 20000, 20000000),
+            new Modelo("nivus", 2020, 20000, 25000000),
+            new Modelo("virtus", 2020, 20000, 30000000),
+            new Modelo("vento", 2024, 20000, 35000000),
+        ];
     }
-    return autoModificado;
-} */
+    else {
+        const modelos = [];
+        const modelosLiterales = JSON.parse(modelosJSON);
 
-/*function modificarModelo(){                           // modificar modelo
-    let autoModificado = obtenerModeloPorNombre();
-    const nuevoAño = parseInt ( prompt( "Ingrese nuevo año"));
-    const nuevoKm = parseInt ( prompt( "Ingrese nuevo km"));
-    const nuevoPrecio = parseInt ( prompt( "Ingrese nuevo precio"));
-
-
-    autoModificado.precio= nuevoPrecio;
-    alert ( "Producto modificado");
-    console.log (modelos)
-}*/
-
-
-    /*for(let modelo of modelos) {
-
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-                <td>${modelo.nombre}</td>
-                <td>${modelo.año}</td>
-                <td>${modelo.km}</td>
-                <td>$ ${modelo.precio}</td>
-        `;
-        tbodyModelos.append(tr);
+        for(const modeloLiteral of modelosLiterales) {
+            modelos.push(
+                new Modelo(
+                    modeloLiteral.nombre, modeloLiteral.año, modeloLiteral.km, modeloLiteral.precio,
+                )
+            )
+        }
+    return modelos;
     }
-}*/
+}
 
+
+//MOSTRAR TOTAL
 function mostrarTotal(){                             //funcion sumatoria total
     const total = modelos.reduce((acc, el) => {
         return acc + el.precio;
@@ -68,19 +60,6 @@ function mostrarTotal(){                             //funcion sumatoria total
     const descuentoDel10= aplicarDescuento(0.10);
     const descuentoDel20= aplicarDescuento(0.20);
 }*/
-
-/*function opcionValida ( opcionIngresada ) {
-    while ( opcionIngresada <1 || opcionIngresada > 4) {  // si ingresa un numero erroneo
-        alert (" Opcion invalida ");
-        opcionIngresada = parseInt ( prompt (seleccionarModelo));
-        }
-    if (opcionIngresada === 4 ) {                                          // si ingresa 4 para salir
-        alert ( " Gracias por usar nuestro sistema") ;
-        return false;
-        }
-    return true;
-}*/
-
 
     function crearModelo(e) { //pedimos los datos del auto
         e.preventDefault();  //  Va agregando modelo a la lista
@@ -106,8 +85,12 @@ function mostrarTotal(){                             //funcion sumatoria total
     //creamos el modelo
     const modelo = new Modelo (nombreModelo, añoModelo, kmModelo, precio,);
 
-
-    modelos.push(modelo);                        //agregar auto al array
+    //agregar auto al array
+    modelos.push(modelo);                        
+    
+    // Guardamos en local storage
+    guardarEnLS();
+    
     alert ("MODELO AGREGADO")
     agregarTabla();
     console.log( modelos);
@@ -121,7 +104,10 @@ function clickSpanAñoModelo(tdAño, spanAño, modelo) {
 
     inputAño.addEventListener("change", () => {
         // Cambiamos precio de producto
-        modelo.año = inputAño.value;
+        modelo.año = parseInt(inputAño.value);
+
+        // Guardamos en local storage
+        guardarEnLS();
 
         // Volver a renderizar la tabla de productos
         agregarTabla();
@@ -142,7 +128,10 @@ function clickSpanKmModelo(tdKm, spanKm, modelo) {
 
     inputKm.addEventListener("change", () => {
         // Cambiamos cantidad de producto
-        modelo.km = inputKm.value;
+        modelo.km = parseFloat(inputKm.value);
+
+        // Guardamos en local storage
+        guardarEnLS();
 
         // Volver a renderizar la tabla de productos
         agregarTabla();
@@ -163,7 +152,10 @@ function clickSpanPrecioModelo(tdPrecio, spanPrecio, modelo) {
 
     inputPrecio.addEventListener("change", () => {
         // Cambiamos precio de producto
-        modelo.precio = inputPrecio.value;
+        modelo.precio = parseFloat(inputPrecio.value);
+
+        // Guardamos en local storage
+        guardarEnLS();
 
         // Volver a renderizar la tabla de productos
         agregarTabla();
@@ -175,7 +167,13 @@ function clickSpanPrecioModelo(tdPrecio, spanPrecio, modelo) {
     // Ocultar span
     spanPrecio.className = "ocultar-elemento";
 }
-
+function eliminarModelo(modelo) {
+    modelos = modelos.filter( (el) => {
+    return el.nombre !== modelo.nombre;
+    });
+    guardarEnLS();                      //guardar en localstorage
+    agregarTabla();                    // Volver a cargar la tabla
+}
 
 function agregarTabla (){
     tbodyModelos.innerHTML= "";
@@ -190,6 +188,7 @@ function agregarTabla (){
         const tdKm = document.createElement("td");
         const tdPrecio = document.createElement("td");
         const tdEstado = document.createElement("td");
+        const tdEliminar = document.createElement("td");
 
         tdNombre.innerText = `${modelo.nombre}`;
 
@@ -217,27 +216,39 @@ function agregarTabla (){
         tdKm.append(spanKm);
         tdPrecio.append(spanPrecio);
 
-        // TD estado
+        // crear boton estado
         const botonDisponible = document.createElement("button");
         botonDisponible.innerText= "Disponible";
         botonDisponible.style.backgroundColor= "rgba(15, 235, 11, 0.801)";
         botonDisponible.style.borderRadius = "5px";
         botonDisponible.style.padding = "2px 5px";
-        // TODO: Disponible 
+        // Agregar boton Disponible
 
         tdEstado.append(botonDisponible) ;
 
-        // Agregar tds al tr
-        tr.append(tdNombre, tdAño, tdKm, tdPrecio, tdEstado);
+        // crear boton eliminar
+        const botonEliminar = document.createElement("button");
+        botonEliminar.innerText = "Eliminar";
+
+        botonEliminar.addEventListener("click", () => {
+            eliminarModelo(modelo);
+        });
+
+        // Agregar boton eliminar
+        tdEliminar.append(botonEliminar)
+
+        // Agregar todos 
+        tr.append(tdNombre, tdAño, tdKm, tdPrecio, tdEstado, tdEliminar);
 
         tbodyModelos.append(tr);
     }
 }
 
 
+
 //INICIO DEL PROGRAMA
 
-/*let usuario = prompt("Ingrese su usuario:");         //Admin
+let usuario = prompt("Ingrese su usuario:");         //Admin
 while (usuario !== "Admin") {                        //Si el usuario esta mal
 alert("Usuario inválido");
 usuario = prompt("Ingrese su usuario:");}
@@ -251,38 +262,15 @@ alert("Bienvenido!");
 const nombre= prompt("Ingrese su nombre:")               //nombre
 const apellido= prompt( "Ingrese su apellido")            //apellido
 console.log (nombre + " " + apellido);
-alert("Hola" + " " + nombre + " " + apellido );        */
+alert("Hola" + " " + nombre + " " + apellido );        
 
 
 const formAgregarModelo = document.getElementById("formAgregarModelo");
 const tbodyModelos= document.getElementById("tbodyModelos");
 //const spanTotal = document.getElementById("total");
 
-const modelos = [               //array modelos
-    new Modelo ("polo", 2020, 20000, 20000000),
-    new Modelo ("nivus", 2020, 20000, 25000000),
-    new Modelo ("virtus", 2020, 20000, 30000000),
-    new Modelo ("vento", 2024, 20000, 35000000),
-    new Modelo ("amarok", 2024, 20000, 40000000),
-];
+let modelos =  obtenerDeLS();          
 
 agregarTabla();
 
 formAgregarModelo.addEventListener("submit", crearModelo);
-
-/*while ( opcionValida (opcion)){
-    switch(opcion){
-        case 1:
-            crearModelo();
-            break;
-        case 2:
-            modificarModelo();
-            break;
-        case 3:
-            mostrarTotal();
-            break;
-    }
-
-//                           volver a pedir la opcion para no quedarse en un bucle infinito
-opcion= parseInt ( prompt ( seleccionarModelo));
-}*/

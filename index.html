@@ -11,17 +11,20 @@
     <style>table, th, td {
         border: 1px solid rgb(0, 0, 0);
         padding: 10px;
+        margin-top: 20px;
     }
     </style>
 </head>
-<body>
+<body style="margin: 1px;">
         <!-- usuario= Admin
         contraseña= 1234 -->
         <!-- obtener total 1.00hs eventos-->
     
-    <aside><img src="./assets/LOGO-ROMBOCAR.ico" alt=""></aside>
-    <h1 style="color: red; text-align: center;">RomboCar</h1>
-    <h2 style="text-align: center; margin-top: 5px;">"Registra tu auto, modificalo cuantas veces quieras y vendelo de la forma mas rapida y segura."</h2>
+    <div style="display: flex;">
+        <aside style=" padding-left: 10px; padding-top: 10px;"><img src="./assets/LOGO-ROMBOCAR.ico" alt=""></aside>
+        <h1 style="color: red; font-size: 65px; padding-top: 60px; padding-left: 300px;">RomboCar</h1>
+    </div>
+    <h2 style="text-align: center; margin-top: 10px; color: rgb(235, 77, 77) ; font-size: 25px;">"Registra tu auto, modificalo cuantas veces quieras y vendelo de la forma mas rapida y segura."</h2>
     
 
     <form id="formAgregarModelo" style="margin-top: 30px; padding-right: 20px; text-align: right;">
@@ -41,6 +44,7 @@
                 <th>Km</th>
                 <th>Precio</th>
                 <th>Estado</th>
+                <th>Eliminar</th>
             </tr>
         </thead>
 

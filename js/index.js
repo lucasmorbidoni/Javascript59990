@@ -248,22 +248,6 @@ function agregarTabla (){
 
 //INICIO DEL PROGRAMA
 
-let usuario = prompt("Ingrese su usuario:");         //Admin
-while (usuario !== "Admin") {                        //Si el usuario esta mal
-alert("Usuario inválido");
-usuario = prompt("Ingrese su usuario:");}
-let contraseña = prompt("Ingrese su contraseña:");      //1234
-while (contraseña !== "1234") {                      // SI la contraseña esta mal
-alert("Contraseña incorrecta");
-contraseña = prompt("Ingrese su contraseña:");
-}
-alert("Bienvenido!");
-    
-const nombre= prompt("Ingrese su nombre:")               //nombre
-const apellido= prompt( "Ingrese su apellido")            //apellido
-console.log (nombre + " " + apellido);
-alert("Hola" + " " + nombre + " " + apellido );        
-
 
 const formAgregarModelo = document.getElementById("formAgregarModelo");
 const tbodyModelos= document.getElementById("tbodyModelos");
